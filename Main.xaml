@@ -418,7 +418,7 @@
                           <InOutArgument x:TypeArguments="x:String" x:Key="io_StrScreenName">
                             <VisualBasicReference x:TypeArguments="x:String" ExpressionText="io_StrScreenName" />
                           </InOutArgument>
-                          <InArgument x:TypeArguments="x:String" x:Key="in_BreakTriggerScopeInArgument">
+                          <InArgument x:TypeArguments="x:String" x:Key="BreakTriggerScopeInArgument">
                             <Literal x:TypeArguments="x:String" Value="" />
                           </InArgument>
                         </ui:InvokeWorkflowFile.Arguments>

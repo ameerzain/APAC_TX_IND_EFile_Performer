@@ -4,9 +4,9 @@
     <x:Property Name="in_TransactionItem" Type="InArgument(ui:QueueItem)" />
     <x:Property Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
     <x:Property Name="io_StrScreenName" Type="InOutArgument(x:String)" />
-    <x:Property Name="in_BreakTriggerScopeInArgument" Type="InArgument(x:String)" />
+    <x:Property Name="BreakTriggerScopeInArgument" Type="InArgument(x:String)" />
   </x:Members>
-  <sap:VirtualizedContainerService.HintSize>1102,8488</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1102,9737</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ActivityBuilder_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
@@ -119,25 +119,29 @@
       <AssemblyReference>UiPath.CV.Activities</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="Login and submit Sequence" sap:VirtualizedContainerService.HintSize="1112,8423" sap2010:WorkflowViewState.IdRef="Sequence_71">
+  <Sequence DisplayName="Login and submit Sequence" sap:VirtualizedContainerService.HintSize="1112,9672" sap2010:WorkflowViewState.IdRef="Sequence_71">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:Int32" Name="IntPANCounter" />
+    </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
     <ui:LogMessage DisplayName="Login and submit Sequence Log Message" sap:VirtualizedContainerService.HintSize="1050,141" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="[UiPath.Core.Activities.LogLevel.Trace]" Message="[&quot;Entered Login page&quot;]" />
-    <uix:NApplicationCard AttachMode="ByInstance" DisplayName="Login and submit Sequence Use Application/Browser" sap:VirtualizedContainerService.HintSize="1050,8131" sap2010:WorkflowViewState.IdRef="NApplicationCard_13" InUiElement="[in_UiElementOutput]" ScopeGuid="fd3a6dd9-d107-4fb3-9f45-80d90dce2791" Version="V2">
+    <uix:NApplicationCard AttachMode="ByInstance" DisplayName="Login and submit Sequence Use Application/Browser" sap:VirtualizedContainerService.HintSize="1050,9380" sap2010:WorkflowViewState.IdRef="NApplicationCard_13" InUiElement="[in_UiElementOutput]" ScopeGuid="fd3a6dd9-d107-4fb3-9f45-80d90dce2791" Version="V2">
       <uix:NApplicationCard.Body>
         <ActivityAction x:TypeArguments="x:Object">
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="x:Object" Name="WSSessionData" />
           </ActivityAction.Argument>
-          <Sequence DisplayName="Login and submit Do Sequence" sap:VirtualizedContainerService.HintSize="1016,7994" sap2010:WorkflowViewState.IdRef="Sequence_69">
+          <Sequence DisplayName="Login and submit Do Sequence" sap:VirtualizedContainerService.HintSize="1016,9243" sap2010:WorkflowViewState.IdRef="Sequence_69">
             <Sequence.Variables>
               <Variable x:TypeArguments="x:Boolean" Name="BoolProcessedFileExist" />
               <Variable x:TypeArguments="x:Boolean" Name="BoolContinueFound" />
               <Variable x:TypeArguments="x:Boolean" Name="BoolCheckContinueExists" />
               <Variable x:TypeArguments="x:Boolean" Name="BoolCheckContinueExists2" />
+              <Variable x:TypeArguments="x:Int32" Name="IntPasswordCounter" />
             </Sequence.Variables>
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -180,6 +184,14 @@
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
             </uix:NClick>
+            <Assign DisplayName="Assign first time Int PAN" sap:VirtualizedContainerService.HintSize="954,82" sap2010:WorkflowViewState.IdRef="Assign_11">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:Int32">[IntPANCounter]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:Int32">[1]</InArgument>
+              </Assign.Value>
+            </Assign>
             <ui:UiElementExists DisplayName="Element Exists 'push button  Continue'" Exists="[BoolCheckContinueExists]" sap:VirtualizedContainerService.HintSize="954,107" sap2010:WorkflowViewState.IdRef="UiElementExists_1">
               <ui:UiElementExists.Target>
                 <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="b576dc51-2bf7-4e31-8c5c-2844ea028fdd" InformativeScreenshot="03e5905a5a4ddfc5f5a1c33889b01698" Selector="&lt;wnd app='itde-filing-2023.exe' cls='Chrome_WidgetWin_1' title='ITR2 Preview &amp;amp; Submit Your Return Validation- Error list' /&gt;&lt;ctrl name='ITR2 Preview &amp;amp; Submit Your Return Validation- Error list' role='document' /&gt;&lt;ctrl name='Continue ' role='push button' /&gt;">
@@ -198,14 +210,49 @@
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
             </ui:UiElementExists>
-            <ui:InterruptibleWhile CurrentIndex="{x:Null}" Condition="[BoolCheckContinueExists]" DisplayName="While Continue For PAN username 1" sap:VirtualizedContainerService.HintSize="954,1519" sap2010:WorkflowViewState.IdRef="InterruptibleWhile_1">
+            <ui:InterruptibleWhile CurrentIndex="{x:Null}" Condition="[BoolCheckContinueExists]" DisplayName="While Continue For PAN username" sap:VirtualizedContainerService.HintSize="954,1976" sap2010:WorkflowViewState.IdRef="InterruptibleWhile_1">
               <ui:InterruptibleWhile.Body>
-                <Sequence DisplayName="PAN Continue Target appears 1" sap:VirtualizedContainerService.HintSize="572,1353" sap2010:WorkflowViewState.IdRef="Sequence_80">
+                <Sequence DisplayName="PAN Continue Target appears 1" sap:VirtualizedContainerService.HintSize="572,1810" sap2010:WorkflowViewState.IdRef="Sequence_80">
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                       <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
+                  <If Condition="[IntPANCounter &gt; 5]" DisplayName="Check If Counter Is greater PAN" sap:VirtualizedContainerService.HintSize="510,295" sap2010:WorkflowViewState.IdRef="If_5">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <If.Then>
+                      <Sequence sap:VirtualizedContainerService.HintSize="376,113" sap2010:WorkflowViewState.IdRef="Sequence_91">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <ui:Break DisplayName="Break PAN loop" sap:VirtualizedContainerService.HintSize="334,25" sap2010:WorkflowViewState.IdRef="Break_4" />
+                      </Sequence>
+                    </If.Then>
+                    <If.Else>
+                      <Sequence sap:VirtualizedContainerService.HintSize="300,80" sap2010:WorkflowViewState.IdRef="Sequence_92">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                      </Sequence>
+                    </If.Else>
+                  </If>
+                  <Assign DisplayName="Assign IntPAN" sap:VirtualizedContainerService.HintSize="510,82" sap2010:WorkflowViewState.IdRef="Assign_12">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:Int32">[IntPANCounter]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:Int32">[IntPANCounter + 1]</InArgument>
+                    </Assign.Value>
+                  </Assign>
                   <uix:NKeyboardShortcuts ActivateBefore="True" ClickBeforeMode="None" DelayAfter="1" DelayBefore="1" DisplayName="PAN login end Keyboard Shortcuts 1" sap:VirtualizedContainerService.HintSize="510,179" sap2010:WorkflowViewState.IdRef="NKeyboardShortcuts_14" Shortcuts="[d(hk)][k(end)][u(hk)]" Version="V3">
                     <sap:WorkflowViewStateService.ViewState>
                       <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -359,6 +406,14 @@
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
             </uix:NTypeInto>
+            <Assign DisplayName="Assign First time Int Password" sap:VirtualizedContainerService.HintSize="954,82" sap2010:WorkflowViewState.IdRef="Assign_13">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:Int32">[IntPasswordCounter]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:Int32">[1]</InArgument>
+              </Assign.Value>
+            </Assign>
             <ui:UiElementExists DisplayName="Element Exists 'push button Continue password' 1" Exists="[BoolCheckContinueExists2]" sap:VirtualizedContainerService.HintSize="954,107" sap2010:WorkflowViewState.IdRef="UiElementExists_4">
               <ui:UiElementExists.Target>
                 <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="11e0a305-e7c2-401a-beda-8d2e9ad56142" InformativeScreenshot="3681b26e6369b46753f6a029a109ec78" Selector="&lt;wnd app='itde-filing-2023.exe' cls='Chrome_WidgetWin_1' title='ITR2 Preview &amp;amp; Submit Your Return Validation- Error list' /&gt;&lt;ctrl name='ITR2 Preview &amp;amp; Submit Your Return Validation- Error list' role='document' /&gt;&lt;ctrl name='Continue' role='push button' /&gt;">
@@ -377,14 +432,49 @@
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
             </ui:UiElementExists>
-            <ui:InterruptibleWhile CurrentIndex="{x:Null}" Condition="[BoolCheckContinueExists2]" DisplayName="While Continue For Password" sap:VirtualizedContainerService.HintSize="954,1576" sap2010:WorkflowViewState.IdRef="InterruptibleWhile_3">
+            <ui:InterruptibleWhile CurrentIndex="{x:Null}" Condition="[BoolCheckContinueExists2]" DisplayName="While Continue For Password" sap:VirtualizedContainerService.HintSize="954,2031" sap2010:WorkflowViewState.IdRef="InterruptibleWhile_3">
               <ui:InterruptibleWhile.Body>
-                <Sequence DisplayName="Continue Target appears password" sap:VirtualizedContainerService.HintSize="572,1410" sap2010:WorkflowViewState.IdRef="Sequence_90">
+                <Sequence DisplayName="Continue Target appears password" sap:VirtualizedContainerService.HintSize="572,1865" sap2010:WorkflowViewState.IdRef="Sequence_90">
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                       <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
+                  <If Condition="[IntPasswordCounter &gt; 5]" DisplayName="Check If Counter Is greater Password" sap:VirtualizedContainerService.HintSize="510,295" sap2010:WorkflowViewState.IdRef="If_6">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <If.Then>
+                      <Sequence sap:VirtualizedContainerService.HintSize="376,113" sap2010:WorkflowViewState.IdRef="Sequence_93">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <ui:Break DisplayName="Break Password loop" sap:VirtualizedContainerService.HintSize="334,25" sap2010:WorkflowViewState.IdRef="Break_5" />
+                      </Sequence>
+                    </If.Then>
+                    <If.Else>
+                      <Sequence sap:VirtualizedContainerService.HintSize="300,80" sap2010:WorkflowViewState.IdRef="Sequence_94">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                      </Sequence>
+                    </If.Else>
+                  </If>
+                  <Assign DisplayName="Assign IntPassword" sap:VirtualizedContainerService.HintSize="510,82" sap2010:WorkflowViewState.IdRef="Assign_14">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:Int32">[IntPasswordCounter]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:Int32">[IntPasswordCounter + 1]</InArgument>
+                    </Assign.Value>
+                  </Assign>
                   <uix:NKeyboardShortcuts ActivateBefore="True" ClickBeforeMode="None" DelayAfter="1" DelayBefore="1" DisplayName="login end Keyboard Shortcuts password" sap:VirtualizedContainerService.HintSize="510,179" sap2010:WorkflowViewState.IdRef="NKeyboardShortcuts_16" Shortcuts="[d(hk)][k(end)][u(hk)]" Version="V3">
                     <sap:WorkflowViewStateService.ViewState>
                       <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -427,7 +517,7 @@
                       </scg:Dictionary>
                     </sap:WorkflowViewStateService.ViewState>
                   </uix:NClick>
-                  <Assign DisplayName="Assign CheckContinueToFalse 3" sap:VirtualizedContainerService.HintSize="510,82" sap2010:WorkflowViewState.IdRef="Assign_10">
+                  <Assign DisplayName="Assign CheckContinueToFalse 3" sap:VirtualizedContainerService.HintSize="510,81" sap2010:WorkflowViewState.IdRef="Assign_10">
                     <Assign.To>
                       <OutArgument x:TypeArguments="x:Boolean">[BoolCheckContinueExists2]</OutArgument>
                     </Assign.To>
@@ -435,7 +525,7 @@
                       <InArgument x:TypeArguments="x:Boolean">[False]</InArgument>
                     </Assign.Value>
                   </Assign>
-                  <ui:UiElementExists DisplayName="Element Exists 'push button Continue password' continue button" Exists="[BoolCheckContinueExists]" sap:VirtualizedContainerService.HintSize="510,107" sap2010:WorkflowViewState.IdRef="UiElementExists_6">
+                  <ui:UiElementExists DisplayName="Element Exists 'push button Continue password' continue button 2" Exists="[BoolCheckContinueExists2]" sap:VirtualizedContainerService.HintSize="510,107" sap2010:WorkflowViewState.IdRef="UiElementExists_6">
                     <ui:UiElementExists.Target>
                       <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="11e0a305-e7c2-401a-beda-8d2e9ad56142" InformativeScreenshot="3681b26e6369b46753f6a029a109ec78" Selector="&lt;wnd app='itde-filing-2023.exe' cls='Chrome_WidgetWin_1' title='ITR2 Preview &amp;amp; Submit Your Return Validation- Error list' /&gt;&lt;ctrl name='ITR2 Preview &amp;amp; Submit Your Return Validation- Error list' role='document' /&gt;&lt;ctrl name='Continue' role='push button' /&gt;">
                         <ui:Target.TimeoutMS>
@@ -453,7 +543,7 @@
                       </scg:Dictionary>
                     </sap:WorkflowViewStateService.ViewState>
                   </ui:UiElementExists>
-                  <If Condition="[BoolCheckContinueExists2]" DisplayName="Check If Continue Button Exists for password continue button" sap:VirtualizedContainerService.HintSize="510,417" sap2010:WorkflowViewState.IdRef="If_4">
+                  <If Condition="[BoolCheckContinueExists2]" DisplayName="Check If Continue Button Exists for password continue button" sap:VirtualizedContainerService.HintSize="510,416" sap2010:WorkflowViewState.IdRef="If_4">
                     <sap:WorkflowViewStateService.ViewState>
                       <scg:Dictionary x:TypeArguments="x:String, x:Object">
                         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -478,13 +568,13 @@
                       </Sequence>
                     </If.Then>
                     <If.Else>
-                      <Sequence sap:VirtualizedContainerService.HintSize="476,235" sap2010:WorkflowViewState.IdRef="Sequence_89">
+                      <Sequence sap:VirtualizedContainerService.HintSize="476,234" sap2010:WorkflowViewState.IdRef="Sequence_89">
                         <sap:WorkflowViewStateService.ViewState>
                           <scg:Dictionary x:TypeArguments="x:String, x:Object">
                             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                           </scg:Dictionary>
                         </sap:WorkflowViewStateService.ViewState>
-                        <Assign DisplayName="Assign CheckContinueToFalse 4" sap:VirtualizedContainerService.HintSize="434,82" sap2010:WorkflowViewState.IdRef="Assign_8">
+                        <Assign DisplayName="Assign CheckContinueToFalse 4" sap:VirtualizedContainerService.HintSize="434,81" sap2010:WorkflowViewState.IdRef="Assign_8">
                           <Assign.To>
                             <OutArgument x:TypeArguments="x:Boolean">[BoolCheckContinueExists2]</OutArgument>
                           </Assign.To>
@@ -505,10 +595,10 @@
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
             </ui:InterruptibleWhile>
-            <ui:LogMessage DisplayName="Login and submit Sequence end Log Message" sap:VirtualizedContainerService.HintSize="954,52" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="[UiPath.Core.Activities.LogLevel.Trace]" Message="[&quot;Successfully Logged in&quot;]">
+            <ui:LogMessage DisplayName="Login and submit Sequence end Log Message" sap:VirtualizedContainerService.HintSize="954,143" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="[UiPath.Core.Activities.LogLevel.Trace]" Message="[&quot;Successfully Logged in&quot;]">
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                   <x:Boolean x:Key="IsPinned">False</x:Boolean>
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
@@ -538,7 +628,7 @@
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
             </uix:NClick>
-            <ui:LogMessage DisplayName="Upload Log Message" sap:VirtualizedContainerService.HintSize="954,141" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="[UiPath.Core.Activities.LogLevel.Trace]" Message="[&quot;Upload Return clicked&quot;]">
+            <ui:LogMessage DisplayName="Upload Log Message" sap:VirtualizedContainerService.HintSize="954,143" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="[UiPath.Core.Activities.LogLevel.Trace]" Message="[&quot;Upload Return clicked&quot;]">
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                   <x:Boolean x:Key="IsExpanded">True</x:Boolean>
